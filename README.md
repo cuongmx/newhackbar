@@ -7,11 +7,9 @@ A sitebar that helps pentesters to perform manual web security testing inside th
 
 The original version is at https://addons.mozilla.org/en-US/firefox/addon/hackbar/
 
-Current release version is 1.0.2 beta at https://github.com/mxcxvn/newhackbar/releases
+Current release version is 1.0.3 at https://addons.mozilla.org/en-US/firefox/addon/new-hackbar/
 
 This is very first version, there will definitely be some of bugs, please don't hate me and give me any bugs and comments to improve it.
-
-I submitted this version to Firefox addons store, hope aproved soon.
 
 ## Some features now:
 1. Almost of features and gui in this version is based on the original addon (hackbar).
