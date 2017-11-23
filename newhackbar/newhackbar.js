@@ -5,18 +5,8 @@ var myWindowId;
 var urlfield = document.querySelector(".urlfield");
 var postdatafield = document.querySelector(".postdatafield");
 var refererfield = document.querySelector(".refererfield");
-/*
-Make the content box editable as soon as the user mouses over the sidebar.
-*/
-// window.addEventListener("mouseover", () => {
-//   urlfield.setAttribute("contenteditable", true);
-//   postdatafield.setAttribute("contenteditable", true);
-//   refererfield.setAttribute("contenteditable", true);
-// });
 
-/*
-When the user mouses out, save the current contents of the box.
-*/
+/* When the user mouses out, save the current contents of the box. */
 window.addEventListener("mouseout", () => {
   // urlfield.setAttribute("contenteditable", false);
   // postdatafield.setAttribute("contenteditable", false);
@@ -32,12 +22,7 @@ window.addEventListener("mouseout", () => {
   });
 });
 
-/*
-Update the sidebar's content.
-1) Get the active tab in this sidebar's window.
-2) Get its stored content.
-3) Put it in the content box.
-*/
+/* Update the sidebar's content. */
 function updateContent() {
   browser.tabs.query({windowId: myWindowId, active: true})
     .then((tabs) => {
@@ -53,20 +38,13 @@ function updateContent() {
     });
 }
 
-/*
-Update content when a new tab becomes active.
-*/
+/* Update content when a new tab becomes active. */
 browser.tabs.onActivated.addListener(updateContent);
 
-/*
-Update content when a new page is loaded into a tab.
-*/
+/* Update content when a new page is loaded into a tab. */
 browser.tabs.onUpdated.addListener(updateContent);
 
-/*
-When the sidebar loads, get the ID of its window,
-and update its content.
-*/
+/* When the sidebar loads, get the ID of its window, and update its content. */
 browser.windows.getCurrent({populate: true}).then((windowInfo) => {
   myWindowId = windowInfo.id;
   updateContent();
@@ -305,7 +283,7 @@ function execute ()
   arraycontent[0] = urlfield.value;
   arraycontent[1] = postdatafield.value;
   arraycontent[2] = refererfield.value;
-  contentToStore[tabs[0].url] = arraycontent;
+  contentToStore[urlfield.value] = arraycontent;
   browser.storage.local.set(contentToStore);
   if (refererCbx.checked) {
     browser.webRequest.onBeforeSendHeaders.addListener(

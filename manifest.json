@@ -1,0 +1,40 @@
+{
+
+  "manifest_version": 2,
+  "name": "New Hackbar",
+  "description": "A sitebar that helps pentesters to perform manual web security testing inside their browser. This addon is writed in webextension and alternatives to the XUL version of origanal Hackbar.",
+  "version": "1.0.2",
+  "applications": {
+    "gecko": {
+      "strict_min_version": "57.0a1"
+    }
+  },
+  "author": "mxcx",
+  "developer": {
+    "name": "mxcx",
+    "url": "http://fosec.vn"
+  },
+  "homepage_url": "https://github.com/mxcxvn/newhackbar",
+
+  "icons": {
+    "48": "icons/fosecicon.png",
+    "96": "icons/fosecicon.png"
+  },
+
+  "sidebar_action": {
+    "default_icon": "icons/fosecicon.png",
+    "default_title" : "Hackbar",
+    "default_panel": "newhackbar/newhackbar.html"
+  },
+
+  "permissions": ["storage", "tabs", "webRequest", "webRequestBlocking", "<all_urls>"],
+
+  "commands": {
+    "_execute_sidebar_action": {
+      "suggested_key": {
+        "default": "F9"
+      }
+    }
+  }
+
+}
