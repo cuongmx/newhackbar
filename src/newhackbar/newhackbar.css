@@ -1,0 +1,163 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 97%;
+  font-family: tahoma;
+  background-color: #F4F7F8;
+}
+
+p {
+  margin: 1em 2em;
+}
+
+.urlfield, .postdatafield, .refererfield {
+  height: 100px;
+  resize: vertical;
+  margin: 0.2em;
+  border: .1em solid #bbb;
+  transition: background-color .2s ease-out;
+}
+
+.hiddenfied {
+  visibility : hidden;
+  position : absolute;
+}
+
+.urlfield[contenteditable=true], .postdatafield[contenteditable=true], .refererfield[contenteditable=true] {
+  background-color: white;
+  transition: background-color .2s ease-in;
+}
+
+[contenteditable]:focus {
+  outline: 0px solid transparent;
+}
+
+button {
+  padding: 1px 1px 1px 20px;
+  width: 60px;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  box-shadow: inset -2px -2px 1px rgba(0,0,0,0.2);  
+}
+
+.loadurl {
+  background: #ddd url('skin/load.png');
+  background-position: 1px 1px;
+  background-repeat: no-repeat;
+  margin-left: 0.2em;
+}
+
+.split {
+  background: #ddd url('skin/split.gif');
+  background-position: 1px 1px;
+  background-repeat: no-repeat;
+}
+
+.execute {
+  background: #ddd url('skin/web.png');
+  background-position: 1px 1px;
+  background-repeat: no-repeat;
+}
+
+.downarrow {
+  background: url('skin/downarrow.png');
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+#primary_nav_wrap
+{
+  margin-top:0.4em;
+  display: table;
+}
+
+#primary_nav_wrap ul
+{
+  list-style:none;
+  position:relative;
+  float:left;
+  margin:0;
+  padding:0
+}
+
+#primary_nav_wrap ul a
+{
+  display:block;
+  color:#333;
+  text-decoration:none;
+  font-weight:700;
+  font-size:12px;
+  line-height:20px;
+  padding:0 15px 0 5px;
+  font-family: tahoma;
+}
+
+#primary_nav_wrap ul li
+{
+  position:relative;
+  float:left;
+  margin-left: 0.4em;
+  padding:1px;
+  border: .1em solid #bbb;
+}
+
+#primary_nav_wrap ul li.current-menu-item
+{
+  background:#ddd
+}
+
+#primary_nav_wrap ul li:hover
+{
+  background:#ddd
+}
+
+#primary_nav_wrap ul ul
+{
+  display:none;
+  position:absolute;
+  top:100%;
+  left:0;
+  background:#fff;
+  padding:0
+}
+
+#primary_nav_wrap ul ul li
+{
+  float:none;
+  width:140px
+}
+
+#primary_nav_wrap ul ul a
+{
+  line-height:120%;
+  padding-left: 20px;
+}
+
+#primary_nav_wrap ul ul ul
+{
+  top:0;
+  left:100%
+}
+
+#primary_nav_wrap ul li:hover > ul
+{
+  display:block
+}
+
+.dropdown-content {
+  visibility = "hidden";
+}
+
+.footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  padding-top: 10px;
+  width: 100%;
+  text-align: right;
+}

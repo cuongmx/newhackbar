@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="newhackbar.css"/>
+  </head>
+<body>
+  <div>
+  <nav id="primary_nav_wrap">
+  <ul>
+    <li><a class="downarrow" name="encryptionmenu">Encryption</a>
+      <ul class="dropdown-content">
+        <li><a name="md5hash" style="background: url('skin/encryption.png');background-repeat: no-repeat;">MD5 Hash</a></li>
+        <li><a name="sha1hash" style="background: url('skin/encryption.png');background-repeat: no-repeat;">SHA1 Hash</a></li>
+        <li><a name="sha256hash" style="background: url('skin/encryption.png');background-repeat: no-repeat;">SHA-256 Hash</a></li>
+        <li><a name="rot13" style="background: url('skin/encryption_weak.png');background-repeat: no-repeat;">ROT13</a></li>
+      </ul>
+    </li>
+    <li><a class="downarrow" name="encodingmenu">Encoding</a>
+      <ul class="dropdown-content">
+        <li><a name="base64encode" style="background: url('skin/uue.png');background-repeat: no-repeat;">Base64 Encode</a></li>
+        <li><a name="base64decode" style="background: url('skin/uud.png');background-repeat: no-repeat;">Base64 Decode</a></li>
+        <li><a name="urlencode" style="background: url('skin/urle.png');background-repeat: no-repeat;">Url Encode</a></li>
+        <li><a name="urldecode" style="background: url('skin/urld.png');background-repeat: no-repeat;">Url Decode</a></li>
+      </ul>
+    </li>
+  </ul>
+  </nav>
+  </div>
+  <div><button class="loadurl">Load</button>
+  <button class="split">Split</button>
+  <button class="execute">Run</button></div>
+  <textarea spellcheck="false" class = "urlfield"></textarea><br>
+  <div><label><input type="checkbox" name="enablepostdata" value="">Enable Post data</label></div>
+  <textarea spellcheck="false" class = "postdatafield hiddenfied"></textarea>
+  <div><label><input type="checkbox" name="enablereferer" value="">Enable Referer</label></div>
+  <textarea spellcheck="false" class = "refererfield hiddenfied"></textarea>
+  <div class="footer">
+    <a href="http://fosec.vn">Power by mxcx@fosec.vn</a>&nbsp;
+  </div>
+  <script src="newhackbar.js"></script>
+  <script src="Encrypt.js"></script>
+</body>
+
+</html>
