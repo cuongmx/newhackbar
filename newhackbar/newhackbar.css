@@ -155,9 +155,11 @@ button {
 
 .footer {
   position: fixed;
-  right: 0;
-  bottom: 0;
+  right: 5px;
+  bottom: 5px;
   padding-top: 10px;
   width: 100%;
   text-align: right;
+  font-size:10px;
+  font-family: tahoma;
 }
