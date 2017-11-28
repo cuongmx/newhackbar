@@ -1,15 +1,15 @@
 # New Hackbar
+[![addons.mozilla.org/](https://addons.cdn.mozilla.net/static/img/addons-buttons/AMO-button_2.png)](https://addons.mozilla.org/firefox/addon/new-hackbar/)
+
 A sitebar that helps pentesters to perform manual web security testing inside their browser. This addon is written in webextension and alternatives to the XUL version of original Hackbar.
+
+This is very first version, there will definitely be some of bugs, please don't hate me and give me any bugs and comments to improve it.
 
 * Deverloper: mxcx
 * Email: mxcxvn@gmail.com
 * Blog: http://fosec.vn
 
-The original version is at https://addons.mozilla.org/en-US/firefox/addon/hackbar/
-
-Current release version is 1.0.3 at https://addons.mozilla.org/en-US/firefox/addon/new-hackbar/
-
-This is very first version, there will definitely be some of bugs, please don't hate me and give me any bugs and comments to improve it.
+The original add-on (XUL-based) at https://addons.mozilla.org/firefox/addon/hackbar/.
 
 ## Some features now:
 1. Almost of features and gui in this version is based on the original addon (hackbar).
