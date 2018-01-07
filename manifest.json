@@ -3,7 +3,7 @@
   "manifest_version": 2,
   "name": "New Hackbar",
   "description": "A sitebar that helps pentesters to perform manual web security testing inside their browser. This addon is writed in webextension and alternatives to the XUL version of origanal Hackbar.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "applications": {
     "gecko": {
       "strict_min_version": "57.0a1"
@@ -33,6 +33,35 @@
     "_execute_sidebar_action": {
       "suggested_key": {
         "default": "F9"
+      }
+    },
+    "do-command-execute": {
+      "suggested_key": {
+        "default": "Alt+X",
+        "mac": "MacCtrl+X"
+      }
+    },
+    "do-command-loadurl": {
+      "suggested_key": {
+        "default": "Alt+A",
+        "mac": "MacCtrl+Z"
+      }
+    },
+    "do-command-loadurl2": {
+      "suggested_key": {
+        "default": "Alt+Z"
+      }
+    },
+    "do-command-spliturl": {
+      "suggested_key": {
+        "default": "Alt+S",
+        "mac": "MacCtrl+S"
+      }
+    },
+    "do-command-md5hash": {
+      "suggested_key": {
+        "default": "Alt+M",
+        "mac": "MacCtrl+F"
       }
     }
   }

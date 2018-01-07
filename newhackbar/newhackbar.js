@@ -8,9 +8,6 @@ var refererfield = document.querySelector(".refererfield");
 
 /* When the user mouses out, save the current contents of the box. */
 window.addEventListener("mouseout", () => {
-  // urlfield.setAttribute("contenteditable", false);
-  // postdatafield.setAttribute("contenteditable", false);
-  // refererfield.setAttribute("contenteditable", false);
   browser.tabs.query({windowId: myWindowId, active: true}).then((tabs) => {
     let contentToStore = {};
     let arraycontent = {};
@@ -249,6 +246,10 @@ function getPostdata()
     typePostdata = "multipart";
     return postdatafield.value;
   }
+  else if (postdatafield.value.startsWith("<") || postdatafield.value.startsWith("{")) {
+    typePostdata = "raw";
+    return postdatafield.value;    
+  }
   else if ((postdatafield.value || '').indexOf("&") > -1) {
     typePostdata = "formdata";
     var dataString = postdatafield.value;
@@ -278,74 +279,87 @@ function rewriteReferer(e) {
 
 function execute ()
 {
-  let contentToStore = {};
-  let arraycontent = {};
-  arraycontent[0] = urlfield.value;
-  arraycontent[1] = postdatafield.value;
-  arraycontent[2] = refererfield.value;
-  contentToStore[urlfield.value] = arraycontent;
-  browser.storage.local.set(contentToStore);
-  if (refererCbx.checked) {
-    browser.webRequest.onBeforeSendHeaders.addListener(
-      rewriteReferer,
-      {urls: ["<all_urls>"], types: ["main_frame"]},
-      ["blocking", "requestHeaders"]
-    );
-  }
-  if (!postdataCbx.checked) { // just get method
-    var updating = browser.tabs.update({url: urlfield.value});
-    updating.then(null, null);
-    return;
-  }
-  var postData = getPostdata();
-  if (typePostdata == "formdata") 
-  {
-    var scriptpost = 'document.body.innerHTML += \'<form id="newhackbardynForm" action="'+ urlfield.value +'" method="post">';
-    for (var i = 0; i < postData.length; i++) {
-      var field = postData[i].split('=');
-      var fieldvalue = "";
-      if (field.length == 2) {
-        fieldvalue = field[1];
-      }
-      else if(field.length == 3){ // base64 case
-        if(field[2]==""){
-          fieldvalue = field[1] + "%3d";
-        }
-      }
-      else{
-        alert("New exception: Too much field in a variable");
-      }
-      scriptpost += '<input type="hidden" name="'+field[0]+'" value="'+fieldvalue+'">';
+  browser.tabs.query({active:true,currentWindow:true}).then(function(tabs){
+    var currentTabUrl = tabs[0].url;
+
+    let contentToStore = {};
+    let arraycontent = {};
+    arraycontent[0] = urlfield.value;
+    arraycontent[1] = postdatafield.value;
+    arraycontent[2] = refererfield.value;
+    contentToStore[urlfield.value] = arraycontent;
+    browser.storage.local.set(contentToStore);
+    if (refererCbx.checked) {
+      browser.webRequest.onBeforeSendHeaders.addListener(
+        rewriteReferer,
+        {urls: ["<all_urls>"], types: ["main_frame"]},
+        ["blocking", "requestHeaders"]
+      );
     }
-    scriptpost += '</form>\';document.getElementById("newhackbardynForm").submit();'
-    var executing = browser.tabs.executeScript({
-      code: scriptpost
-    });
-    executing.then(null, null);  
-  }
-  else // for raw data and mutilpart formdata
-  {
-    var responsePost = "";
-    fetch(urlfield.value, {
-      method: "POST",
-      redirect: 'follow',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Cache': 'no-cache'
-      },
-      credentials: 'include',
-      body: postdatafield.value
-      }).then(function(response) {
-      response.text().then(function (text) {
-        responsePost = text;
-        var scriptpost = 'document.body.innerHTML = unescape(\''+urlencode(responsePost)+'\');window.history.pushState("", "", \''+urlfield.value+'\');';
+    if (!postdataCbx.checked) { // just get method
+      var updating = browser.tabs.update({url: urlfield.value});
+      updating.then(null, null);
+      return;
+    }
+    var postData = getPostdata();
+    if (typePostdata == "formdata") 
+    {
+      var scriptpost = 'document.body.innerHTML += \'<form id="newhackbardynForm" action="'+ urlfield.value +'" method="post">';
+      for (var i = 0; i < postData.length; i++) {
+        var field = postData[i].split('=');
+        var fieldvalue = "";
+        if (field.length == 2) {
+          fieldvalue = field[1];
+        }
+        else if(field.length == 3){ // base64 case
+          if(field[2]==""){
+            fieldvalue = field[1] + "%3d";
+          }
+        }
+        else{
+          typePostdata = "raw";
+          break;
+        }
+        scriptpost += '<input type="hidden" name="'+field[0]+'" value="'+fieldvalue+'">';
+      }
+      if (typePostdata == "formdata")
+      {
+        scriptpost += '</form>\';document.getElementById("newhackbardynForm").submit();'
         var executing = browser.tabs.executeScript({
           code: scriptpost
         });
         executing.then(null, null);  
+      }
+    }
+    if (typePostdata != "formdata")  // for raw data and mutilpart formdata
+    {
+      if (currentTabUrl != urlfield.value) {
+        var updating = browser.tabs.update({url: urlfield.value});
+        updating.then(null, null);
+      }
+      var responsePost = "";
+      fetch(urlfield.value, {
+        method: "POST",
+        redirect: 'follow',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cache': 'no-cache'
+        },
+        credentials: 'include',
+        body: postdatafield.value
+        }).then(function(response) {
+        response.text().then(function (text) {
+          responsePost = text;
+          var scriptpost = 'document.body.innerHTML = unescape(\''+urlencode(responsePost)+'\');';
+          var executing = browser.tabs.executeScript({
+            code: scriptpost
+          });
+          executing.then(null, null);  
+        });
       });
-    });
-  }
+    }
+
+  });
 }
 
 function splitUrl ()
@@ -441,3 +455,24 @@ function togglereferer(){
   contentToStore["hackbarsettings"] = arraycontent;
   browser.storage.local.set(contentToStore);
 }
+
+browser.commands.onCommand.addListener(function(command) {
+  switch(command){
+    case "do-command-execute":
+      execute();
+      break;
+    case "do-command-loadurl":
+    case "do-command-loadurl2":
+      loadURL();
+      break;
+    case "do-command-spliturl":
+      splitUrl();
+      break;
+    case "do-command-md5hash":
+      var txt = this.getSelectedText();
+      var newString = Encrypt.md5(txt);
+      this.setSelectedText( newString );
+      currentFocusField.focus();
+      break;
+  }
+});
