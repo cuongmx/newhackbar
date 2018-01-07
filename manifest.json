@@ -3,7 +3,7 @@
   "manifest_version": 2,
   "name": "New Hackbar",
   "description": "A sitebar that helps pentesters to perform manual web security testing inside their browser. This addon is writed in webextension and alternatives to the XUL version of origanal Hackbar.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "applications": {
     "gecko": {
       "strict_min_version": "57.0a1"

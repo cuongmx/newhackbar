@@ -23,7 +23,7 @@ The original add-on (XUL-based) at https://addons.mozilla.org/firefox/addon/hack
 + Split Url: Alt + S and Control + S on Mac
 
 ## Log changes:
-### 07 January 2018: Update 1.0.3
+### 07 January 2018: Update 1.0.4
 + Add some shortcuts for LoadUrl, Execute, Split Url
 + Fix bug when post raw data
 + Fix bug when post in new tab
